@@ -69,15 +69,15 @@ class WPCliDb extends Cli
         }
     }
     
-    public function start_with_dump($custom_dump)
+    public function import_dump($filename)
     {
         $this->runShellCommand("wp db reset --yes");
 
         if (isset($filename)) {
-            $this->runShellCommand("wp db import " . $this->config[$custom_dump]);
+            $this->runShellCommand("wp db import " . codecept_data_dir() . $filename);
             $this->db_cleanup();
         } else {
-            echo $custom_dump." not set, default database dump loaded instead.";
+            echo $filename." not set, default database dump loaded instead.";
         }
     }
 
