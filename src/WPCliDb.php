@@ -68,6 +68,18 @@ class WPCliDb extends Cli
             echo "Dump2 not set, default database dump loaded instead.";
         }
     }
+    
+    public function start_with_dump($filename)
+    {
+        $this->runShellCommand("wp db reset --yes");
+
+        if (isset($filename)) {
+            $this->runShellCommand("wp db import " . $filename);
+            $this->db_cleanup();
+        } else {
+            echo $filename." not set, default database dump loaded instead.";
+        }
+    }
 
     private function db_cleanup()
     {
