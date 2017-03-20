@@ -73,11 +73,13 @@ class WPCliDb extends Cli
     {
         $this->runShellCommand("wp db reset --yes");
 
-        if (file_exists($filename)) {
-            $this->runShellCommand("wp db import " . codecept_data_dir() . $filename);
+        $file = codecept_data_dir() . $filename;
+
+        if (file_exists($file)) {
+            $this->runShellCommand("wp db import " . $file);
             $this->db_cleanup();
         } else {
-            echo $filename." not found in _data folder, default database dump loaded instead.";
+            $this->fail("Your file does not exist");
         }
     }
 
